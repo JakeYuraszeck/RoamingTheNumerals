@@ -7,5 +7,8 @@ void setup() {
 
 void draw() {
   ellipse(0,0, 100, 100);
+  ellipse(1000,0, 100, 100);
+  ellipse(0,100, 100, 100);
+  ellipse(1000,100, 100, 100);
   x_pos +=10
 }
