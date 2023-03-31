@@ -6,6 +6,6 @@ void setup() {
 }
 
 void draw() {
-  ellipse(x_pos,50, 10, 10);
-  x_pos +=1
+  ellipse(0,0, 100, 100);
+  x_pos +=10
 }
