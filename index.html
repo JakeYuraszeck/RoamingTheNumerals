@@ -19,12 +19,52 @@
       p.firstItem{
         font-weight: bold;
       }
+      nav.left-menu {
+        width: 200px;
+        float: left;
+        margin-right: 40px;
+      }
+      nav.left-menu ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      nav.left-menu li {
+        margin: 10px 0;
+      }
+      nav.left-menu a {
+        text-decoration: none;
+        color: black;
+      }
     </style>
   </head>
   <body style="background-color:rgb(222, 184, 135);">
+    <nav class="left-menu">
+      <ul>
+        <li><a href="#graphs">Graphs</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#art">Art</a></li>
+        <li><a href="#games">Games</a></li>
+      </ul>
+    </nav>
     <h1 style="text-align: center;">Welcome to Roaming the Numerals!</h1>
     <div style="text-align: center;">
-      <canvas data-processing-sources="processing\roataringText\roataringText.pde"></canvas>
+      <canvas data-processing-sources="processing/roataringText/roataringText.pde"></canvas>
     </div>
-  
+    <section id="graphs">
+      <h2>Graphs</h2>
+      <p>Content coming soon.</p>
+    </section>
+    <section id="articles">
+      <h2>Articles</h2>
+      <p>Content coming soon.</p>
+    </section>
+    <section id="art">
+      <h2>Art</h2>
+      <p>Content coming soon.</p>
+    </section>
+    <section id="games">
+      <h2>Games</h2>
+      <p>Content coming soon.</p>
+    </section>
+  </body>
 </html>
