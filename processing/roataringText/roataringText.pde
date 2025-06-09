@@ -36,6 +36,6 @@ void draw() {
 
 float[] get_coords(float t){
   y_pos = -180*(cos(.5*t) + cos(2*t))+380;
-  x_pos = -180*(sin(t) + sin(4*t))+500;
+  x_pos = -180*(sin(2t) + sin(4*t))+500;
   return new float[] {x_pos,y_pos};
 }
