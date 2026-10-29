@@ -43,6 +43,8 @@
   -->
 
   <link rel="stylesheet" href="styles.css">
+  <!-- Responsive styling for the introduction video player. -->
+  <link rel="stylesheet" href="video.css">
   <!--
     Connects this HTML document to your CSS file.
 
@@ -57,6 +59,21 @@
   
   <!-- defer runs our scripts after the HTML has been parsed. -->
   <script src="script.js" defer></script>
+  <!-- EDIT WEBSITE PRICES HERE: each value is dollars per 60-minute lesson.
+       twoSessionRate and fourSessionRate are PER LESSON, not package totals.
+       Totals are calculated automatically. Update Calendly prices separately.
+       Keep JSON keys in double quotes and do not add a trailing comma. -->
+  <script id="tutoring-prices" type="application/json">
+    {
+      "singleSession": 65,
+      "twoSessionRate": 60,
+      "fourSessionRate": 55,
+      "satSession": 100
+    }
+  </script>
+  <!-- Reads the rates above and updates price text after the HTML loads. -->
+  <script src="pricing.js" defer></script>
+
 </head>
 
 <body>
@@ -73,21 +90,26 @@
   -->
   <a href="#main-content">Skip to main content</a>
 
+  <!-- Full-width branding bar: visible at the top, scrolling with the page. -->
+  <header class="site-banner">
+    <a class="site-logo" href="#introduction" aria-label="Roaming the Numerals — introduction">
+      <img src="Logo%20and%20Color%20Pallet/Logo.png" alt="Roaming the Numerals">
+    </a>
+    <p class="site-tagline">Math &amp; Math SAT Tutoring <br> with Jake Yuraszeck</p>
+
+  </header>
+
+
   <!--
     SIDEBAR
 
-    <aside> groups the branding and booking navigation.
+    <aside> groups the booking navigation.
 
     The CSS keeps this on the left on wider screens.
     On smaller screens, CSS places it above the main content.
     HTML alone does not position it on the left.
   -->
   <aside>
-    <!-- Clicking the business name jumps back to the introduction. -->
-    <a href="#introduction">Roaming the Numerals</a>
-
-    <p>Math &amp; Math SAT Tutoring</p>
-
     <!--
       <nav> identifies a group of navigation links.
       aria-label gives this navigation a name for screen readers.
@@ -121,6 +143,7 @@
         <li>
           <a href="#sat-booking">Book an SAT tutoring session</a>
         </li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </aside>
@@ -147,7 +170,7 @@
       This hierarchy helps people understand the page structure.
     -->
     <header id="introduction">
-      <h1>Understand the math. Build your confidence.</h1>
+      <h1>Understand the math. <br>Build your confidence.</h1>
 
 
       <!--
@@ -181,39 +204,22 @@
       <!-- CSS makes this link look like a button. -->
       <a href="#consultation">Start with a free consultation</a>
 
-      <!--
-        VIDEO PLACEHOLDER
-
-        <div> is a general-purpose container.
-        This container reserves a visible space for your future video.
-
-        class="intro-video" connects it to .intro-video in styles.css.
-        Classes can be reused; IDs must be unique.
-
-        role="group" and aria-label describe the placeholder
-        for screen-reader users.
-
-        This is not a working video player.
-        Later, replace this entire div with a real video or embed,
-        and adjust the CSS for the player as needed.
+      <!-- INTRODUCTION VIDEO
+        The path must match the MP4 filename in your Images folder exactly.
+        controls adds play, pause, volume, seeking, and fullscreen controls.
+        playsinline lets supported phones play it within the page.
+        preload="metadata" avoids downloading the entire video on page load.
+        Playback starts when the visitor presses Play.
       -->
-      <div
-        class="intro-video"
-        role="group"
-        aria-label="Introduction video placeholder"
-      >
-        <!--
-          <span> wraps a small piece of content.
-          The play symbol is decorative, so aria-hidden="true"
-          keeps screen readers from announcing it.
-        -->
-        <span class="video-symbol" aria-hidden="true">▶</span>
-
-        <p class="video-title">Meet Jake</p>
-
-        <p>A short introduction to me and how I teach.</p>
-
-        <small>Introduction video coming soon</small>
+      <!-- YouTube introduction video -->
+      <div class="intro-youtube">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/q749N92OVE8"
+          title="Math tutoring with Jake — introduction"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
       </div>
     </header>
 
@@ -417,9 +423,9 @@
         </p>
 
         <ul>
-          <li>One 60-minute session: $50</li>
-          <li>Two 60-minute sessions package: $90 total ($45 each)</li>
-          <li>Four 60-minute sessions package: $160 total ($40 each)</li>
+          <li data-price="single">One 60-minute session: $50</li>
+          <li data-price="two">Two 60-minute sessions package: $90 total ($45 each)</li>
+          <li data-price="four">Four 60-minute sessions package: $160 total ($40 each)</li>
         </ul>
 
         <a href="#math-booking">Book your next tutoring session</a>
@@ -434,7 +440,7 @@
           on between sessions.
         </p>
 
-        <p>One 60-minute session: $100</p>
+        <p data-price="sat">One 60-minute session: $100</p>
 
         <a href="#sat-booking">Book an SAT tutoring session</a>
       </article>
@@ -489,6 +495,10 @@
       -->
       <details class="booking-calendar">
         <summary>Free consultation — show available times</summary>
+        <p class="booking-guidance">For the best Calendly experience, I recommend viewing this website in fullscreen mode.</p>
+        <p class="booking-fallback">
+          <a href="https://calendly.com/jakeyura/free-consultation" target="_blank" rel="noopener">Open the selected booking page in a new tab</a>
+        </p>
         <!-- Height controls the calendar's space after opening. -->
         <div
         class="calendly-inline-widget"
@@ -525,16 +535,17 @@
       <label for="session-package"></label>
       <select id="session-package" aria-controls="math-calendar">
         <option value="">Choose a session package</option>
-        <option value="https://calendly.com/jakeyura/standard-session">1 tutoring session ($50)</option>
-        <option value="https://calendly.com/jakeyura/packages/6f107ad2-2a39-4d0d-b281-ba2ca70e0ca2">2 tutoring sessions package ($90 total; $45 each)</option>
-        <option value="https://calendly.com/jakeyura/packages/150583d0-84e6-43a1-95a3-91c14c249d56">4 tutoring sessions package ($160 total; $40 each)</option>
+        <option value="https://calendly.com/jakeyura/standard-session" data-price="single-option">1 tutoring session ($50)</option>
+        <option value="https://calendly.com/jakeyura/packages/6f107ad2-2a39-4d0d-b281-ba2ca70e0ca2" data-price="two-option">2 tutoring sessions package ($90 total; $45 each)</option>
+        <option value="https://calendly.com/jakeyura/packages/150583d0-84e6-43a1-95a3-91c14c249d56" data-price="four-option">4 tutoring sessions package ($160 total; $40 each)</option>
       </select>
 
       <!-- hidden removes the entire control until a package is chosen.
            The script closes and clears it whenever the selection changes. -->
       <details id="math-calendar" class="booking-calendar" hidden>
         <summary>Show available times</summary>
-        <p class="package-note"></p>
+        <p class="booking-guidance">For the best Calendly experience, I recommend viewing this website in fullscreen mode.</p>
+        
         <p class="booking-fallback">
           <a id="math-booking-link" target="_blank" rel="noopener">Open the selected booking page in a new tab</a>
         </p>
@@ -593,6 +604,10 @@
       -->
       <details class="booking-calendar">
         <summary>SAT tutoring — show available times</summary>
+        <p class="booking-guidance">For the best Calendly experience, I recommend viewing this website in fullscreen mode.</p>
+        <p class="booking-fallback">
+          <a href="https://calendly.com/jakeyura/sat-session" target="_blank" rel="noopener">Open the selected booking page in a new tab</a>
+        </p>
         <!-- Height controls the calendar's space after opening. -->
         <div
       class="calendly-inline-widget"
@@ -603,6 +618,18 @@
     </section>
 
     
+    <!-- CONTACT
+      mailto opens the visitor's email app. tel opens a phone calling app,
+      and sms opens a text message app on supported devices.
+    -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <p>Have a question about tutoring? Email, call, or text me.</p>
+      <p><strong>Email:</strong> <a href="mailto:jakeyuraszeck@gmail.com">jakeyuraszeck@gmail.com</a></p>
+      <p><strong>Call or text:</strong> <a href="tel:+12678854637">(267) 885-4637</a>
+        · <a href="sms:+12678854637">Send a text</a></p>
+    </section>
+
   </main>
 
   <!--
