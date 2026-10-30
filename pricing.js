@@ -1,8 +1,4 @@
-/* WEBSITE PRICING
-   Edit only the four rates in index.html's tutoring-prices block.
-   This file calculates package totals and updates text, never booking URLs
-   or Calendly checkout prices. Existing fallback text stays if JavaScript
-   is unavailable. Keep that fallback text current for those visitors. */
+
 (() => {
   const prices = JSON.parse(document.getElementById('tutoring-prices').textContent);
   const keys = ['singleSession', 'twoSessionRate', 'fourSessionRate', 'satSession'];
@@ -10,7 +6,6 @@
     console.error('Website prices must be finite, nonnegative numbers.');
     return;
   }
-  // Calculate in cents to avoid floating-point rounding in package totals.
   const cents = value => Math.round(value * 100);
   const currency = new Intl.NumberFormat('en-US', {
     style: 'currency', currency: 'USD', maximumFractionDigits: 2,

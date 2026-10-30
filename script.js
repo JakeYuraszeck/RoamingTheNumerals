@@ -1,46 +1,94 @@
-/* ROAMING THE NUMERALS — INTERACTIVE BEHAVIOR
-   Loaded with defer in index.html, so page elements exist before this runs.
-   Calendly keeps its own separate third-party script in index.html.
-   Sections below retain their original order and explanatory comments. */
 
 
-  /*
-    Pair each sidebar link with its destination.
-    The links should follow the same order as the page sections.
-  */
-  const sidebarLinks = [...document.querySelectorAll('aside nav a')];
+
+  
+  
+  
+  const navToggle = document.getElementById('nav-toggle');
+  const siteSidebar = document.getElementById('site-sidebar');
+  const narrowMenu = window.matchMedia('(max-width: 900px)');
+
+  function setSidebarCollapsed(collapsed) {
+    document.body.classList.toggle('sidebar-collapsed', collapsed);
+    if (navToggle) {
+      navToggle.setAttribute('aria-expanded', String(!collapsed));
+      navToggle.setAttribute(
+        'aria-label',
+        collapsed ? 'Open navigation menu' : 'Close navigation menu'
+      );
+    }
+  }
+
+  if (navToggle && siteSidebar) {
+    setSidebarCollapsed(narrowMenu.matches);
+
+    navToggle.addEventListener('click', event => {
+      event.stopPropagation();
+      setSidebarCollapsed(!document.body.classList.contains('sidebar-collapsed'));
+    });
+
+    document.querySelectorAll('#site-navigation a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (narrowMenu.matches) setSidebarCollapsed(true);
+      });
+    });
+
+    document.addEventListener('click', event => {
+      if (!narrowMenu.matches) return;
+      if (document.body.classList.contains('sidebar-collapsed')) return;
+      if (siteSidebar.contains(event.target)) return;
+      setSidebarCollapsed(true);
+    });
+
+    narrowMenu.addEventListener('change', event => {
+      setSidebarCollapsed(event.matches);
+    });
+  }
+
+const sidebarLinks = [...document.querySelectorAll('aside nav a')];
 
   const sidebarSections = sidebarLinks.map(link => ({
     link,
     section: document.querySelector(link.getAttribute('href'))
   })).filter(item => item.section);
 
+  const bookingOptions = document.getElementById('booking-options');
+  const bookingTrack = document.getElementById('booking-track');
+  const bookingCards = bookingTrack ? [...bookingTrack.querySelectorAll('.booking-card')] : [];
+
   function updateHighlight() {
     if (!sidebarSections.length) return;
 
-    /*
-      Start with Introduction selected.
-
-      As each section reaches 100 pixels below the top of the
-      window, select its link. Keep it selected until the next
-      section reaches that point.
-
-      This keeps Introduction highlighted through the video
-      and biography, even though the biography is a separate section.
-    */
+    
     let current = sidebarSections[0];
 
     sidebarSections.forEach(item => {
+      if (item.section.classList.contains('booking-card')) return;
+
       if (item.section.getBoundingClientRect().top <= 100) {
         current = item;
       }
     });
 
-    /*
-      At the bottom of the page, select the final section.
-      This handles sections too short to reach the top.
-      Only apply this when the page is tall enough to scroll.
-    */
+    if (bookingOptions && bookingTrack && bookingCards.length) {
+      const bookingTop = bookingOptions.getBoundingClientRect().top;
+      const contact = document.getElementById('contact');
+      const contactTop = contact ? contact.getBoundingClientRect().top : Infinity;
+
+      if (bookingTop <= 100 && contactTop > 100) {
+        const trackLeft = bookingTrack.getBoundingClientRect().left;
+        const visibleCard = bookingCards.reduce((closest, card) => {
+          const distance = Math.abs(card.getBoundingClientRect().left - trackLeft);
+          const closestDistance = Math.abs(closest.getBoundingClientRect().left - trackLeft);
+          return distance < closestDistance ? card : closest;
+        });
+
+        const bookingItem = sidebarSections.find(item => item.section === visibleCard);
+        if (bookingItem) current = bookingItem;
+      }
+    }
+
+    
     const pageHeight = document.documentElement.scrollHeight;
     const canScroll = pageHeight > window.innerHeight + 2;
     const atBottom =
@@ -50,10 +98,7 @@
       current = sidebarSections[sidebarSections.length - 1];
     }
 
-    /*
-      Highlight exactly one link and identify it for
-      screen-reader users.
-    */
+    
     sidebarLinks.forEach(link => {
       const isCurrent = link === current.link;
 
@@ -71,7 +116,6 @@
   window.addEventListener('resize', updateHighlight);
   window.addEventListener('load', updateHighlight);
 
-  // Dropdowns change section positions without scrolling.
   document.querySelectorAll('.booking-calendar').forEach(dropdown => {
     dropdown.addEventListener('toggle', updateHighlight);
   });
@@ -80,8 +124,7 @@
 
 
 
-  /* Package selection controls only the standard math booking section.
-     No booking or purchase happens just by selecting an option. */
+  
   const packageSelect = document.getElementById('session-package');
   const mathCalendar = document.getElementById('math-calendar');
   const mathFrame = document.getElementById('math-calendar-frame');
@@ -89,7 +132,6 @@
 
   function updatePackage() {
     const url = packageSelect.value;
-    // Discard the previous checkout so another package cannot remain visible.
     mathCalendar.open = false;
     mathFrame.replaceChildren();
     mathCalendar.hidden = !url;
@@ -101,18 +143,65 @@
       frame.src = url;
       mathFrame.append(frame);
     }
-    // Recalculate sidebar highlighting after the section's height changes.
     updateHighlight();
   }
-  packageSelect.addEventListener('change', updatePackage);
-  // pageshow also handles a browser restoring a previous selection on Back.
-  window.addEventListener('pageshow', updatePackage);
-  updatePackage();
+  if (packageSelect && mathCalendar && mathFrame && mathLink) {
+    packageSelect.addEventListener('change', updatePackage);
+    window.addEventListener('pageshow', updatePackage);
+    updatePackage();
+  }
 
 
 
-  /* Buttons advance by one card. No timer moves the reviews while someone
-     is reading. Respect the visitor's reduced-motion setting. */
+  
+  const bookingPrev = document.getElementById('booking-prev');
+  const bookingNext = document.getElementById('booking-next');
+
+  function moveBookings(direction) {
+    if (!bookingTrack || !bookingCards.length) return;
+    const card = bookingCards[0];
+    const gap = parseFloat(getComputedStyle(bookingTrack).gap) || 16;
+    bookingTrack.scrollBy({
+      left: direction * (card.getBoundingClientRect().width + gap),
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+    });
+  }
+
+  function updateBookingButtons() {
+    if (!bookingTrack || !bookingPrev || !bookingNext) return;
+    bookingPrev.disabled = bookingTrack.scrollLeft <= 2;
+    bookingNext.disabled = bookingTrack.scrollLeft + bookingTrack.clientWidth >= bookingTrack.scrollWidth - 2;
+  }
+
+  if (bookingTrack && bookingPrev && bookingNext) {
+    bookingPrev.addEventListener('click', () => moveBookings(-1));
+    bookingNext.addEventListener('click', () => moveBookings(1));
+    bookingTrack.addEventListener('scroll', () => {
+      updateBookingButtons();
+      updateHighlight();
+    }, { passive: true });
+    window.addEventListener('resize', updateBookingButtons);
+    window.addEventListener('load', updateBookingButtons);
+    updateBookingButtons();
+  }
+
+  sidebarLinks.forEach(link => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target || !target.classList.contains('booking-card')) return;
+
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      target.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+        inline: 'start'
+      });
+      history.pushState(null, '', link.getAttribute('href'));
+    });
+  });
+
+
+  
   const reviewTrack = document.getElementById('reviews-track');
   const reviewPrev = document.getElementById('reviews-prev');
   const reviewNext = document.getElementById('reviews-next');
@@ -128,17 +217,18 @@
     reviewPrev.disabled = reviewTrack.scrollLeft <= 2;
     reviewNext.disabled = reviewTrack.scrollLeft + reviewTrack.clientWidth >= reviewTrack.scrollWidth - 2;
   }
-  reviewPrev.addEventListener('click', () => moveReviews(-1));
-  reviewNext.addEventListener('click', () => moveReviews(1));
-  reviewTrack.addEventListener('scroll', updateReviewButtons, { passive: true });
-  window.addEventListener('resize', updateReviewButtons);
-  window.addEventListener('load', updateReviewButtons);
-  updateReviewButtons();
+  if (reviewTrack && reviewPrev && reviewNext) {
+    reviewPrev.addEventListener('click', () => moveReviews(-1));
+    reviewNext.addEventListener('click', () => moveReviews(1));
+    reviewTrack.addEventListener('scroll', updateReviewButtons, { passive: true });
+    window.addEventListener('resize', updateReviewButtons);
+    window.addEventListener('load', updateReviewButtons);
+    updateReviewButtons();
+  }
 
 
 
-  /* Only long reviews need an expansion button. Without JavaScript, all
-     reviews remain fully readable. Recheck after a resize or fonts load. */
+  
   function sizeReviewQuotes() {
     document.querySelectorAll('.review-card').forEach(card => {
       const paragraph = card.querySelector('blockquote p');
@@ -146,7 +236,7 @@
       if (card.classList.contains('review-expanded')) return;
       card.classList.remove('has-review-toggle');
       const lineHeight = parseFloat(getComputedStyle(paragraph).lineHeight);
-      const isLong = paragraph.scrollHeight > lineHeight * 5 + 2;
+      const isLong = paragraph.scrollHeight > lineHeight * 4 + 2;
       card.classList.toggle('has-review-toggle', isLong);
       button.hidden = !isLong;
     });
@@ -167,8 +257,6 @@
 
 
 
-  // Add more objects to this list to include more photos.
-  // The folder, filename, and extension must match your actual image files.
   const aboutPhotos = [
     { src: 'Images/Normal Photo.jpg', alt: 'Jake' },
     { src: 'Images/Ponder Photo.jpg', alt: 'Jake pondering' }
@@ -178,7 +266,6 @@
   let aboutPhotoIndex = 0;
 
   function showAboutPhoto(step) {
-    // Wrap around: Next on the last photo returns to the first.
     aboutPhotoIndex = (aboutPhotoIndex + step + aboutPhotos.length) % aboutPhotos.length;
     const photo = aboutPhotos[aboutPhotoIndex];
     aboutPhoto.src = photo.src;

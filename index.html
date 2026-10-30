@@ -1,68 +1,35 @@
 <!DOCTYPE html>
-<!-- Declares that this document uses modern HTML.
 
-     Everything between these comment markers is a note for you.
-     Comments do not appear on the webpage, but visitors can read
-     them in the page source, so never put passwords in comments.
--->
 
 <html lang="en">
-<!--
-  <html> wraps the entire document.
-  lang="en" tells browsers and screen readers the language is English.
--->
+
 
 <head>
-  <!--
-    HEAD: information about the page.
-    This section does not contain the visible webpage content.
-  -->
+  
 
   <meta charset="UTF-8">
-  <!-- Supports characters such as apostrophes and copyright symbols. -->
+  
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--
-    Makes mobile browsers use the actual device width.
-    This allows our responsive CSS to work properly on phones.
-  -->
+  
 
   <meta
     name="description"
     content="Personalized math and SAT tutoring with Jake Yuraszeck, a Philadelphia-based tutor with theoretical math research experience and classroom teaching experience."
   >
-  <!--
-    Search engines may show this description in search results.
-    You can edit the content="..." text without changing the layout.
-  -->
+  
 
-  <title>Roaming the Numerals | Math &amp; Math SAT Tutoring</title>
-  <!--
-    This appears in the browser tab.
-    &amp; is the HTML way to write an ampersand: &
-  -->
+  <title>Roaming the Numerals | Personalized Math Tutoring</title>
+  
 
   <link rel="stylesheet" href="styles.css">
-  <!-- Responsive styling for the introduction video player. -->
-  <link rel="stylesheet" href="video.css">
-  <!--
-    Connects this HTML document to your CSS file.
 
-    href="styles.css" means: look for styles.css in the same folder
-    as this index.html file.
 
-    HTML controls content and structure.
-    CSS controls colors, fonts, spacing, and layout.
-  -->
-
-  <!-- All visual rules are in styles.css. Interactive behavior is in script.js. -->
   
-  <!-- defer runs our scripts after the HTML has been parsed. -->
+  
+  
   <script src="script.js" defer></script>
-  <!-- EDIT WEBSITE PRICES HERE: each value is dollars per 60-minute lesson.
-       twoSessionRate and fourSessionRate are PER LESSON, not package totals.
-       Totals are calculated automatically. Update Calendly prices separately.
-       Keep JSON keys in double quotes and do not add a trailing comma. -->
+  
   <script id="tutoring-prices" type="application/json">
     {
       "singleSession": 65,
@@ -71,147 +38,105 @@
       "satSession": 100
     }
   </script>
-  <!-- Reads the rates above and updates price text after the HTML loads. -->
+  
   <script src="pricing.js" defer></script>
 
 </head>
 
 <body>
-  <!-- BODY: everything visitors see and interact with. -->
+  
 
-  <!--
-    ACCESSIBILITY SHORTCUT
-
-    This link lets keyboard users skip the navigation.
-    Our CSS hides it until the link receives keyboard focus.
-
-    A link beginning with # jumps to an ID on this same page.
-    Here, #main-content points to <main id="main-content"> below.
-  -->
+  
   <a href="#main-content">Skip to main content</a>
 
-  <!-- Full-width branding bar: visible at the top, scrolling with the page. -->
+  
   <header class="site-banner">
-    <a class="site-logo" href="#introduction" aria-label="Roaming the Numerals — introduction">
-      <img src="Logo%20and%20Color%20Pallet/Logo.png" alt="Roaming the Numerals">
-    </a>
-    <p class="site-tagline">Math &amp; Math SAT Tutoring <br> with Jake Yuraszeck</p>
-
+    <div class="header-brand-group">
+      <div class="site-logo" aria-label="Roaming the Numerals">
+        <img src="Logo%20and%20Color%20Pallet/Logo.png" alt="Roaming the Numerals">
+      </div>
+      <p class="site-tagline">Personalized<br>Math Tutoring</p>
+    </div>
   </header>
 
+  <div class="header-action-row">
+    <div class="header-booking-buttons">
+      <a href="booking-tutoring.html">Book Math Tutoring</a>
+      <a href="booking-test-prep.html">Book Test Prep</a>
+    </div>
 
-  <!--
-    SIDEBAR
+    <div class="header-contact-buttons">
+      <a href="tel:+2672914651">Call or Text</a>
+      <a href="mailto:jakeyuraszeck@gmail.com">Email Me</a>
+    </div>
+  </div>
 
-    <aside> groups the booking navigation.
+  <button
+    type="button"
+    id="nav-toggle"
+    class="nav-toggle"
+    aria-expanded="true"
+    aria-controls="site-sidebar"
+    aria-label="Close navigation menu"
+  >
+    <span aria-hidden="true">☰</span>
+    <span class="nav-toggle-text">Menu</span>
+  </button>
 
-    The CSS keeps this on the left on wider screens.
-    On smaller screens, CSS places it above the main content.
-    HTML alone does not position it on the left.
-  -->
-  <aside>
-    <!--
-      <nav> identifies a group of navigation links.
-      aria-label gives this navigation a name for screen readers.
-    -->
-    <nav aria-label="Booking options">
-      <!--
-        <ul> means an unordered list.
-        Each <li> is one list item.
-        CSS removes the bullets and styles the links.
-      -->
+  <aside id="site-sidebar">
+    <nav id="site-navigation" aria-label="Site navigation">
       <ul>
-        <!--
-          These links currently jump to sections farther down the page.
-          They do not schedule appointments yet.
-
-          Later, you can replace their href values with Calendly URLs.
-          The text between <a> and </a> is the visible link label.
-        -->
-        <li>
-          <a href="#introduction">Introduction</a>
-        </li>
-        <li>
-          <a href="#services">Tutoring services</a>
-        </li>
-        <li>
-          <a href="#consultation">Book a free consultation</a>
-        </li>
-        <li>
-          <a href="#math-booking">Book your next tutoring session</a>
-        </li>
-        <li>
-          <a href="#sat-booking">Book an SAT tutoring session</a>
-        </li>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#about">About me</a></li>
+        <li><a href="#reviews">Student reviews</a></li>
+        <li><a href="#booking-options">Tutoring services</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </aside>
 
-  <!--
-    MAIN CONTENT
-
-    <main> identifies the page's primary content.
-
-    An ID is a unique name for an element.
-    Do not give two elements the same ID.
-    Links and CSS can use IDs to target specific elements.
-  -->
+  
   <main id="main-content">
 
-    <!--
-      INTRODUCTION
-
-      <header> groups the opening content.
-      Its ID is the destination of the business-name link above.
-
-      Use <h1> for the main page heading,
-      <h2> for section headings, and <h3> for service headings.
-      This hierarchy helps people understand the page structure.
-    -->
+    
     <header id="introduction">
-      <h1>Understand the math. <br>Build your confidence.</h1>
+      <h1>Understand the math.<br>Build your confidence.</h1>
 
+      <p>Personalized math tutoring and test preparation with Jake.</p>
 
-      <!--
-        <p> creates a paragraph.
+      <div class="intro-grid" aria-label="Tutoring approach">
+        <section class="info-tile">
+          <span class="tile-label">Start where you're at</span>
+          <h2>You're never too far behind!</h2>
+          <p>No matter where you're at, you can reach your mathematical goals. With the right support and guidance, you can tackle any math problem.</p>
+        </section>
 
-        You can change the words inside these tags.
-        Keep the opening and closing tags intact.
+        <section class="info-tile">
+          <span class="tile-label">Make it make sense to you</span>
+          <h2>Get personalized explainations</h2>
+          <p>Every student learns math differently, which is why I have devopled mutliple ways of thinking about math.
+            I have the map, you choose what path we take. </p>
+        </section>
 
-        The CSS gives the first and second paragraphs in this header
-        different styles. Reordering them changes which text gets
-        those styles.
-      -->
-      <p>
-        Personalized math and math SAT tutoring with Jake!
-      </p>
+        <section class="info-tile">
+          <span class="tile-label">Build confidence</span>
+          <h2>Discover your mathematical brain</h2>
+          <p>Once I teach you how to learn math, you'll have the confidence to learn math on your own. This lowers any anxiety and stress math may cause.</p>
+        </section>
+      </div>
 
-      <p>Whether you are:</p>
+      <div class="intro-fit">
+        <strong>My personalized <br> tutoring is for you if:</strong>
+        <ul>
+          <li>You are struggling with a math class or topic</li>
+          <li>You just needing to pass a math course for your degree</li>
+          <li>Math is causing you anxiety and/or stress</li>
+          <li>The way your professor/teacher explains things doesn't work for you</li>
+        </ul>
+      </div>
 
-      <ul>
-        <li>Struggling with a math class or topic</li>
-        <li>Just needing to pass a math course for your degree</li>
-        <li>Interested in learning beyond what your math class offers</li>
-        <li>Building a deeper theoretical understanding of the math you already know</li>
-      </ul>
-
-      <p>
-        Together, we will build your mathematical skills based on what you
-        already know to help you reach your goals!
-      </p>
-
-      <!-- CSS makes this link look like a button. -->
       <a href="#consultation">Start with a free consultation</a>
 
-      <!-- INTRODUCTION VIDEO
-        The path must match the MP4 filename in your Images folder exactly.
-        controls adds play, pause, volume, seeking, and fullscreen controls.
-        playsinline lets supported phones play it within the page.
-        preload="metadata" avoids downloading the entire video on page load.
-        Playback starts when the visitor presses Play.
-      -->
-      <!-- YouTube introduction video -->
       <div class="intro-youtube">
         <iframe
           src="https://www.youtube-nocookie.com/embed/q749N92OVE8"
@@ -223,20 +148,11 @@
       </div>
     </header>
 
-    <!--
-      ABOUT SECTION
-
-      <section> groups content about one topic.
-
-      aria-labelledby="about-heading" tells assistive technology
-      to use the heading with id="about-heading" as this section's name.
-
-      If you rename that ID, update aria-labelledby to match.
-    -->
-    <section aria-labelledby="about-heading">
+    
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">Hello, I'm Jake!</h2>
       <div class="about-layout">
 
-        <!-- Left column: photo and buttons for switching pictures. -->
         <div class="about-photo-column">
           <img
             id="about-photo"
@@ -249,46 +165,48 @@
             <span id="photo-position" aria-live="polite" aria-atomic="true">1 / 2</span>
             <button type="button" id="photo-next" aria-label="Next photo" aria-controls="about-photo">&gt;</button>
           </div>
+
+        
         </div>
 
-        <!-- Right column: all About text, including the heading. -->
         <div class="about-text">
-          <h2 id="about-heading">Hello, I'm Jake!</h2>
+          
 
-          <p>
-            I am a professional tutor with a degree in theoretical math
-            with over 10 years of math communication experience including:
-          </p>
-
-          <ul>
-            <li>Online and in-person tutoring</li>
-            <li>Teaching in the classroom (I've taught grades 7 through 10)</li>
-            <li>Designing and performing interactive math demos for math outreach events</li>
-            <li>Working as a TA throughout college</li>
-          </ul>
-
-          <p>
-            I use my deep understanding of mathematics and my experiences in education
-            to explain math in multiple unique ways, allowing you to access math in the way that works best for you.
-            We’ll break down difficult ideas, explore why methods work,
-            and practice applying them.
-          </p>
+          <div class="about-summary">
+            <div class="about-stat">
+              <strong>10+ years in math communication</strong>
+              <span> at all levels from elementary school through graduate level math.</span>
+            </div>
+            <div class="about-stat">
+              <strong>500+ tutoring sessions</strong>
+              <span>designing lessons, checking for understanding, creating and providing resources. </span>
+            </div>
+            <div class="about-stat">
+              <strong>Background in theoretical mathematics</strong>
+              <span>allows me to come up with countless ways to explain the same topic for any level of math</span>
+            </div>
+          </div>          
         </div>
-
       </div>
+      <h3><br>Welcome! Here's a little about me:</h3>
+          <ul class="check-list">
+            <li>Online and in-person tutoring has been my passion since high school.</li>
+            <li>I was a classroom math teacher in Philadelphia. I've taught grades 7 through 10.</li>
+            <li>I've designed and preformed interactive math demonstrations for outreach events.</li>
+            <li>I play multiple instruments: piano, guitar, trombone, drum pads, etc. I often work in audio production and DAWs. </li>
+          </ul>
+      <div class="teaching-philosophy">
+            <span class="tile-label">How I teach</span>
+            <p><strong>One explanation does not work for everyone.</strong> I use multiple approaches, connect new ideas 
+              to what you already know, and help you feel more confident in your ability to learn math.</p>
+        </div>
     </section>
 
-        <!-- STUDENT REVIEWS
-      This is a single horizontally scrolling row, not an automatic slideshow.
-      Visitors can swipe, use the buttons, or focus the row and use arrow keys.
-      Review text is preserved exactly as supplied. Images paths are relative
-      to index.html and must match your capitalized Images folder and filenames.
-      To add a review, copy one review-card and edit its image, name, date, quote.
-    -->
+        
     <section id="reviews" aria-labelledby="reviews-heading">
       <h2 id="reviews-heading">Student reviews</h2>
       <div class="review-toolbar">
-        <!-- Opens the review form in a new tab, keeping the tutoring site available. -->
+        
         <a class="leave-review" href="https://docs.google.com/forms/d/e/1FAIpQLScyTPi0xcAROB5b-deOcbaVMfcWNchqo461oRz-7IK4lGNkPA/viewform" target="_blank" rel="noopener">Leave a review!</a>
         <div class="review-controls" aria-label="Review navigation">
           <button type="button" id="reviews-prev" aria-controls="reviews-track" aria-label="Previous reviews">← Previous</button>
@@ -302,7 +220,7 @@
             <img src="Images/default avatar.png" alt="" width="48" height="48" loading="lazy">
             <div><strong>Paul</strong><time datetime="2026-03-17">March 17, 2026</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-1"><p>He’s good</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-1" hidden>Read more</button>
@@ -312,7 +230,7 @@
             <img src="Images/default avatar.png" alt="" width="48" height="48" loading="lazy">
             <div><strong>April</strong><time datetime="2026-01-12">January 12, 2026</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-2"><p>Good at explaining, thoroughly taught lessons and made classes easy and understandable.</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-2" hidden>Read more</button>
@@ -322,7 +240,7 @@
             <img src="Images/CARLIE avatar.jpg" alt="" width="48" height="48" loading="lazy">
             <div><strong>CARLIE</strong><time datetime="2025-12-21">December 21, 2025</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-3"><p>great humor and had a lot of fun. learned a lot</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-3" hidden>Read more</button>
@@ -332,7 +250,7 @@
             <img src="Images/Sasha avatar.jpg" alt="" width="48" height="48" loading="lazy">
             <div><strong>Sasha</strong><time datetime="2025-12-12">December 12, 2025</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-4"><p>Jake was a big help to teach me problems and explain them in detail! He&#x27;s a great Calculas teacher!</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-4" hidden>Read more</button>
@@ -342,7 +260,7 @@
             <img src="Images/Carlos avatar.jpg" alt="" width="48" height="48" loading="lazy">
             <div><strong>Carlos</strong><time datetime="2025-12-08">December 8, 2025</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-5"><p>This is my first real lesson with jake but I already feel so much more comfortable with algebra and that&#x27;s always been a big struggle for me and something none of my real teachers could ever help me with so thank you for actually teaching me something that I&#x27;ve struggled with my whole life.</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-5" hidden>Read more</button>
@@ -352,7 +270,7 @@
             <img src="Images/default avatar.png" alt="" width="48" height="48" loading="lazy">
             <div><strong>Neo</strong><time datetime="2025-12-04">December 4, 2025</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-6"><p>Really nice person who is always up to some humor, and most importantly, is really helpful with teaching and problem solving, leaving me with no questions after the lesson!</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-6" hidden>Read more</button>
@@ -362,7 +280,7 @@
             <img src="Images/adam avatar.jpg" alt="" width="48" height="48" loading="lazy">
             <div><strong>adam</strong><time datetime="2025-12-04">December 4, 2025</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-7"><p>he always makes jokes for almost every multiplication problem. for example I could not remember 6 times 7 so he said it was 42 the meaning of life from a hitchhikers guide to the Galaxy. now I always know what 6 times 7 is.</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-7" hidden>Read more</button>
@@ -372,7 +290,7 @@
             <img src="Images/Jerry avatar.jpg" alt="" width="48" height="48" loading="lazy">
             <div><strong>Jerry</strong><time datetime="2023-02-18">February 18, 2023</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-8"><p>Very patient and easy to follow along. Might have a limited schedule, but it will be great to have him as a tutor</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-8" hidden>Read more</button>
@@ -382,7 +300,7 @@
             <img src="Images/default avatar.png" alt="" width="48" height="48" loading="lazy">
             <div><strong>Anonymous</strong><time datetime="2022-12-20">December 20, 2022</time></div>
           </figcaption>
-          <!-- Five black stars, with one accessible rating label. -->
+          
           <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote id="review-quote-9"><p>My 13 year old son was placed into advanced math this year and was struggling. He’s had only three lessons with Jake and his confidence and knowledge is already improving! Jake is relatable and does a great job explaining so that my son can understand. He’s always enthusiastic and goes the extra mile!</p></blockquote>
           <button type="button" class="review-expand" aria-expanded="false" aria-controls="review-quote-9" hidden>Read more</button>
@@ -391,266 +309,84 @@
     </section>
     
 
-    <!--
-      SERVICES SECTION
-
-      The CSS selects this section using:
-      section[aria-labelledby="services-heading"]
-
-      That rule displays the two services side by side on larger
-      screens and stacks them on narrow screens.
-
-      Keep this attribute value unless you also update the CSS.
-    -->
-    <section id="services" aria-labelledby="services-heading">
-      <h2 id="services-heading">Tutoring services</h2>
-
-      <!--
-        <article> groups one self-contained service description.
-        Edit the wording and prices directly inside these tags.
-      -->
-      <article>
-        <h3>Math tutoring</h3>
-
-        <p>
-          Individual support for your math course, including
-          reviewing concepts, working through problems, and
-          preparing for exams.
-        </p>
-
-        <p>
-          Save more by purchasing packages!
-        </p>
-
-        <ul>
-          <li data-price="single">One 60-minute session: $50</li>
-          <li data-price="two">Two 60-minute sessions package: $90 total ($45 each)</li>
-          <li data-price="four">Four 60-minute sessions package: $160 total ($40 each)</li>
-        </ul>
-
-        <a href="#math-booking">Book your next tutoring session</a>
-      </article>
-
-      <article>
-        <h3>SAT tutoring</h3>
-
-        <p>
-          Targeted preparation with a personalized study plan,
-          practice materials, and help identifying what to focus
-          on between sessions.
-        </p>
-
-        <p data-price="sat">One 60-minute session: $100</p>
-
-        <a href="#sat-booking">Book an SAT tutoring session</a>
-      </article>
-    </section>
-
-
-
-
-    <!--
-      CONSULTATION BOOKING
-
-      id="consultation" is the destination of href="#consultation".
-
-      For now, this explains the consultation and shows a status message.
-      Later, replace the coming-soon paragraph with a real booking link
-      or scheduling embed.
-
-      The CSS styles the final paragraph as a status label.
-      Revisit that CSS rule when replacing the placeholder.
-    -->
-      <section
-      id="consultation"
-      aria-labelledby="consultation-heading"
-      >
-      <h2 id="consultation-heading">Book a free consultation</h2>
-
-      <p>
-        Let's meet before your first session! I'd love to get to know you and your mathematical goals. 
-        While this is only a 15 minute session, bring some materials or math topics you'd like to go over. This could include:
-      </p>
-
-      <ul>
-          <li>Homeworks</li>
-          <li>Assignments</li>
-          <li>Quizes/Tests</li>
-          <li>Syllabus</li>
-          <li>A list of topics you want to go over</li>
-      </ul>
-      
-      <p>
-        We can hit the ground running and you get to see my tutoring style!
-      </p>
-
-
-      <!-- Calendly displays the consultation calendar inside this container. -->
-      
-        <!--
-        <details> creates a dropdown using built-in browser behavior.
-        It starts closed because there is no open attribute.
-        <summary> is its clickable label and also works with a keyboard.
-        Keep the calendar inside this dropdown and its booking section.
-      -->
-      <details class="booking-calendar">
-        <summary>Free consultation — show available times</summary>
-        <p class="booking-guidance">For the best Calendly experience, I recommend viewing this website in fullscreen mode.</p>
-        <p class="booking-fallback">
-          <a href="https://calendly.com/jakeyura/free-consultation" target="_blank" rel="noopener">Open the selected booking page in a new tab</a>
-        </p>
-        <!-- Height controls the calendar's space after opening. -->
-        <div
-        class="calendly-inline-widget"
-        data-url="https://calendly.com/jakeyura/free-consultation"
-       
-       id="widget-size-1"></div>
-      </details>
-    </section>
     
-
-    <!--
-      MATH BOOKING
-
-      Keep id="math-booking" matched to the links that point here.
-      Update this section when your math scheduling link is ready.
-    -->
-    <section
-      id="math-booking"
-      aria-labelledby="math-booking-heading"
-    >
-      <h2 id="math-booking-heading">
-        Book your next tutoring session
-      </h2>
-
-      <p>
-        Are you ready to continue your mathematical journey? I am very excited that you are here and interested in improving your math skills.
-        I love that every day I get to help students feel less anxious and to start believing in themselves. Let me show you how powerful your 
-        current knowledge and intuition is! You CAN reach your math goals, no matter what your level you are at.
-      </p>
-
-
-      <!-- A select offers mutually exclusive packages. The blank value is
-           a prompt, not a purchasable option. Keep each URL with its label. -->
-      <label for="session-package"></label>
-      <select id="session-package" aria-controls="math-calendar">
-        <option value="">Choose a session package</option>
-        <option value="https://calendly.com/jakeyura/standard-session" data-price="single-option">1 tutoring session ($50)</option>
-        <option value="https://calendly.com/jakeyura/packages/6f107ad2-2a39-4d0d-b281-ba2ca70e0ca2" data-price="two-option">2 tutoring sessions package ($90 total; $45 each)</option>
-        <option value="https://calendly.com/jakeyura/packages/150583d0-84e6-43a1-95a3-91c14c249d56" data-price="four-option">4 tutoring sessions package ($160 total; $40 each)</option>
-      </select>
-
-      <!-- hidden removes the entire control until a package is chosen.
-           The script closes and clears it whenever the selection changes. -->
-      <details id="math-calendar" class="booking-calendar" hidden>
-        <summary>Show available times</summary>
-        <p class="booking-guidance">For the best Calendly experience, I recommend viewing this website in fullscreen mode.</p>
-        
-        <p class="booking-fallback">
-          <a id="math-booking-link" target="_blank" rel="noopener">Open the selected booking page in a new tab</a>
-        </p>
-        <!-- The iframe is created only after selecting a package.
-             Calendly controls the checkout and availability inside it.
-             Use the direct link above if its package checkout blocks embeds. -->
-        <div id="math-calendar-frame"></div>
-      </details>
-    </section>
-    
-    <!--
-      SAT BOOKING
-
-      This is separate so the SAT links can lead to their own
-      scheduling option.
-    -->
-    <section
-      id="sat-booking"
-      aria-labelledby="sat-booking-heading"
-    >
-      <h2 id="sat-booking-heading">
-        Book an SAT tutoring session
-      </h2>
-
-      <p>This service doesn't just apply to the SAT. Are you studying for any of the following exams?</p>
-
-
-
-      <div class="exam-lists">
-        <ul>
-          <li>GRE</li>
-          <li>CLT</li>
-          <li>GMAT</li>
-        </ul>
-
-        <ul>
-          <li>ACT</li>
-          <li>GED</li>
-          <li>NAEP</li>
-        </ul>
+    <section id="booking-options" aria-labelledby="booking-options-heading">
+      <div class="booking-toolbar">
+        <h2 id="booking-options-heading">Tutoring Services</h2>
+        <div class="booking-controls" aria-label="Booking navigation">
+          <button type="button" id="booking-prev" aria-controls="booking-track" aria-label="Previous booking option">← Previous</button>
+          <button type="button" id="booking-next" aria-controls="booking-track" aria-label="Next booking option">Next →</button>
+        </div>
       </div>
-      <p>
-      For each of these tests, I have plenty of resources, practice tests, exam practice workbooks, testing strategies, and more! 
-      Studying for the math section for any of these tests can be incredibly stressful, so don't do it alone!   
-      </p>
-      <p>
-      We'll make a personalized study plan based on your current math skill with daily check-ins on your progress. You can log your progress
-      in the plan which will then allow me to design a targeted lesson for our next session.
-      </p>
 
-      <!--
-        <details> creates a dropdown using built-in browser behavior.
-        It starts closed because there is no open attribute.
-        <summary> is its clickable label and also works with a keyboard.
-        Keep the calendar inside this dropdown and its booking section.
-      -->
-      <details class="booking-calendar">
-        <summary>SAT tutoring — show available times</summary>
-        <p class="booking-guidance">For the best Calendly experience, I recommend viewing this website in fullscreen mode.</p>
-        <p class="booking-fallback">
-          <a href="https://calendly.com/jakeyura/sat-session" target="_blank" rel="noopener">Open the selected booking page in a new tab</a>
-        </p>
-        <!-- Height controls the calendar's space after opening. -->
-        <div
-      class="calendly-inline-widget"
-      data-url="https://calendly.com/jakeyura/sat-session"
-     
-     id="widget-size-2"></div>
-      </details>
+      <div id="booking-track" class="booking-track" role="region" aria-label="Booking options" tabindex="0">
+
+        <article id="consultation" class="booking-card" aria-labelledby="consultation-heading">
+          <h3 id="consultation-heading">Book a free 15-minute consultation</h3>
+          <div class="service-points">
+            <div><strong>Lets meet for free! </strong><span>I'd love to talk through your goals and see if we are a good fit.</span></div>
+            <div><strong>Bring some math!</strong><span>Homework, assignments, quizzes, tests, a syllabus, or a topic list. <br> We can walk through a topic and you get to see my tutoring style.</span></div>
+            <div><strong>Leave with next steps</strong><span>You'll leave with clear study goals and resources to check out before our first real session!</span></div>
+          </div>
+
+          <a class="service-schedule" href="booking-consultation.html">Schedule</a>
+        </article>
+
+        <article id="math-booking" class="booking-card" aria-labelledby="math-booking-heading">
+          <h3 id="math-booking-heading">Book your next tutoring session</h3>
+          <div class="service-points">
+            <div><strong>Course-specific help</strong><span>Bring the exact class, homework, unit, or exam you are working on.</span></div>
+            <div><strong>Clear explanations</strong><span>We will:
+              
+              <ul class="check-list">
+            <li>slow down confusing ideas,</li>
+            <li>connect them to what you know,</li>
+            <li>find ways to think about them that make sense to you,</li>
+            <li>and practice until they click. </li>
+          </ul>
+             </span></div>
+            <div><strong>Build confidence and independence</strong><span>We will go over how to learn these math ideas to build confidence in your own mathematical thinking</span></div>
+          </div>
+
+          <div class="service-callout">Save more when you buy session packages!</div>
+
+          <a class="service-schedule" href="booking-tutoring.html">Schedule</a>
+        </article>
+
+        <article id="sat-booking" class="booking-card" aria-labelledby="sat-booking-heading">
+          <h3 id="sat-booking-heading">Book a Standardized Test Prep session</h3>
+          <div class="service-points">
+            <div><strong>SAT, ACT, and more</strong><span>SAT, ACT, GRE, CLT, GMAT, GED, and NAEP math preparation.</span></div>
+            <div><strong>Targeted practice</strong><span> I will provide:
+              <ul class="check-list">
+            <li>practice tests</li>
+            <li>workbooks</li>
+            <li>testing strategies</li>
+          </ul>and we will work on skills targeted to increase your score.</span></div>
+            <div><strong>Personalized study plan</strong><span>Track your progress with a shared study plan! This shows me your progress between sessions so the next lesson targets what you need most.</span></div>
+          </div>
+
+          <a class="service-schedule" href="booking-test-prep.html">Schedule</a>
+        </article>
+
+      </div>
     </section>
 
+
     
-    <!-- CONTACT
-      mailto opens the visitor's email app. tel opens a phone calling app,
-      and sms opens a text message app on supported devices.
-    -->
     <section id="contact" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Contact</h2>
       <p>Have a question about tutoring? Email, call, or text me.</p>
       <p><strong>Email:</strong> <a href="mailto:jakeyuraszeck@gmail.com">jakeyuraszeck@gmail.com</a></p>
-      <p><strong>Call or text:</strong> <a href="tel:+12678854637">(267) 885-4637</a>
-        · <a href="sms:+12678854637">Send a text</a></p>
+      <p><strong>Call or text:</strong> <a href="tel:+2672914651">(267) 291-4651</a>
+        · <a href="sms:+2672914651">Send a text</a></p>
     </section>
 
   </main>
 
-  <!--
-    FOOTER
-
-    <footer> groups information at the end of the page.
-    &copy; displays the copyright symbol.
-
-    The year is plain text, so change it manually when needed.
-  -->
+  
   <footer>
     <p>&copy; 2026 Roaming the Numerals. Jake Yuraszeck.</p>
   </footer>
-
-  
-
-<!-- Loads Calendly's embed code for all calendars on this page. -->
-<script
-  src="https://assets.calendly.com/assets/external/widget.js"
-  async
-></script>
-
 </body>
 </html>
