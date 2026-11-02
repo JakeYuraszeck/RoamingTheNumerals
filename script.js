@@ -206,7 +206,9 @@ const sidebarLinks = [...document.querySelectorAll('aside nav a')];
   const reviewPrev = document.getElementById('reviews-prev');
   const reviewNext = document.getElementById('reviews-next');
   function moveReviews(direction) {
+    if (!reviewTrack) return;
     const card = reviewTrack.querySelector('.review-card');
+    if (!card) return;
     const gap = parseFloat(getComputedStyle(reviewTrack).gap) || 20;
     reviewTrack.scrollBy({
       left: direction * (card.getBoundingClientRect().width + gap),
@@ -214,6 +216,7 @@ const sidebarLinks = [...document.querySelectorAll('aside nav a')];
     });
   }
   function updateReviewButtons() {
+    if (!reviewTrack || !reviewPrev || !reviewNext) return;
     reviewPrev.disabled = reviewTrack.scrollLeft <= 2;
     reviewNext.disabled = reviewTrack.scrollLeft + reviewTrack.clientWidth >= reviewTrack.scrollWidth - 2;
   }
