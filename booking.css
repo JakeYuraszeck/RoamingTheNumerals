@@ -1,17 +1,17 @@
 :root {
-  --paper: #121116;
-  --panel: #1C1821;
-  --panel-2: #242032;
-  --ink: #F6F3F5;
-  --muted: #CEC5D0;
-  --line: #68545F;
+  --paper: #ffffff;
+  --panel: #ffffff;
+  --panel-2: #f6f5fa;
+  --ink: #1d1b2e;
+  --muted: #545267;
+  --line: #d9d6e5;
   --accent: #313B88;
   --accent-hover: #404C9F;
-  --pink: #F4A8CD;
+  --pink: #313b88;
 }
 
 * { box-sizing: border-box; }
-html { color-scheme: dark; }
+html { color-scheme: light; }
 body {
   margin: 0;
   background: var(--paper);
@@ -21,7 +21,7 @@ body {
   line-height: 1.65;
 }
 a { color: var(--pink); text-underline-offset: 4px; }
-a:hover { color: #FFD6E2; }
+a:hover { color: #1f2766; }
 a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible {
   outline: 3px solid var(--pink);
   outline-offset: 3px;
@@ -39,7 +39,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 }
 .booking-card-page {
   padding: clamp(24px, 5vw, 48px);
-  border: 1px solid #433747;
+  border: 1px solid #d9d6e5;
   border-radius: 12px;
   background: var(--panel);
 }
@@ -88,9 +88,9 @@ p { max-width: 68ch; }
 #session-package {
   width: 100%;
   padding: 14px;
-  border: 1px solid #7B88CB;
+  border: 1px solid #b9bfe6;
   border-radius: 6px;
-  background: #24283E;
+  background: #ffffff;
   color: var(--ink);
   font: inherit;
 }
@@ -99,7 +99,7 @@ p { max-width: 68ch; }
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #18161E;
+  background: #ffffff;
 }
 .booking-calendar[hidden] { display: none; }
 .booking-calendar summary {
@@ -119,3 +119,5 @@ p { max-width: 68ch; }
   .booking-card-page { padding: 22px 16px; }
   .calendly-inline-widget { height: 1000px; }
 }
+
+.trial-code{font-size:1.35rem;line-height:1.4;margin:16px 0;padding:14px 16px;border-radius:10px;background:#fff;border:2px solid var(--accent, #313b88)}
