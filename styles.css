@@ -128,7 +128,7 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .btn-small{margin-left:auto}
 }
 @media(max-width:860px){
-  .hero-grid,.split,.three{grid-template-columns:1fr}
+  .hero-grid,.split,.three{grid-template-columns:minmax(0,1fr)}
   .hero-head{order:-2}
   .flip{order:-1;max-width:420px}
   .section{padding:44px 0}
@@ -163,3 +163,6 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
 html{background:var(--soft) url("Images/math-bg-desktop.png") center top/auto 100% no-repeat}
 @media(max-width:1199px){html{background-image:url("Images/math-bg-tablet.png")}}
 @media(max-width:860px){html{background-image:url("Images/math-bg-mobile.png")}}
+
+.card{min-width:0}
+.card p,.card a{overflow-wrap:anywhere}
