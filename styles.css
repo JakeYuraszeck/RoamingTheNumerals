@@ -221,7 +221,9 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .sessions .s-first{order:3}
   .sessions .s-parents{order:4}
   .sessions .s-resched{order:5}
-  .sessions .s-cta{order:6;margin-top:4px}
+  .sessions .s-cta{order:6;margin-top:4px;flex-wrap:nowrap;align-items:center}
+  /* Same side-by-side buttons as the hero on phones */
+  .sessions .s-cta .btn{flex:1 1 0;font-size:14px;padding:9px 12px}
 }
 
 /* Phones: approach cards stacked on the left, "This is for you if" beside them on the right */
