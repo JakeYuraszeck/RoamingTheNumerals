@@ -78,7 +78,9 @@ a:focus-visible,.btn:focus-visible{outline:3px solid var(--pink);outline-offset:
 .lead-points li::marker{color:var(--accent)}
 .fine{font-size:17px;color:var(--muted)}
 .proof{font-size:18px;font-weight:600;color:var(--accent);margin:-4px 0 0}
-.proof{display:flex;flex-direction:column;gap:2px}
+.proof{display:flex;flex-direction:column;gap:10px;line-height:1.35}
+.proof span{position:relative;padding-left:1.1em}
+.proof span::before{content:"\2022";position:absolute;left:.1em;top:0}
 @media(min-width:561px){.proof span{white-space:nowrap}}
 .hero-quote{margin:18px 0 0;padding:12px 16px;border-left:4px solid var(--pink);background:#fff8fc;border-radius:0 10px 10px 0;max-width:none}
 .hero-quote blockquote{margin:0;font-size:19px;line-height:1.55;font-style:italic}
@@ -150,13 +152,13 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .hero-head h1 span{white-space:normal}
   /* Sized from the card's width so each sentence stays on one line */
   .hero-head{container-type:inline-size}
-  .hero-head h1{font-size:min(calc(10cqi + 1.2px),46px)}
+  .hero-head h1{font-size:min(calc(9cqi + 1px),42px)}
   .hero-head .eyebrow{font-size:min(4.5cqi,16px);letter-spacing:.04em}
   .lead{font-size:20px}
   .hero-side>.flip{grid-column:1;grid-row:2/span 2;align-self:center;justify-self:start;position:relative;z-index:2}
-  .hero-grid .proof{grid-column:2;grid-row:2;align-self:end;font-size:15px;margin:0}
+  .hero-grid .proof{grid-column:2;grid-row:2;align-self:end;font-size:14px;margin:0}
   .hero-grid .btn-row{grid-column:2;grid-row:3;align-self:start;flex-direction:column;align-items:stretch;gap:8px;margin:14px 0 0}
-  .hero-grid .btn-row .btn{font-size:15px;padding:10px 12px}
+  .hero-grid .btn-row .btn{font-size:14px;padding:9px 12px}
   .hero-grid p.lead{grid-column:1/-1;grid-row:4;margin:20px 0 0}
   .hero-grid .lead-points{grid-column:1/-1;grid-row:5;margin-top:12px}
   .hero-grid .fine{grid-column:1/-1;grid-row:6}
@@ -170,6 +172,14 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .hero-grid:has(.flip.is-open) .lead-points{grid-row:6}
   .hero-grid:has(.flip.is-open) .fine{grid-row:7}
   .hero-grid:has(.flip.is-open) .hero-quote{grid-row:8}
+  /* Buttons below the photo + credentials, side by side (script adds .btns-below when the column beside the photo would be taller than the photo) */
+  .hero-grid.btns-below .proof{grid-row:2/span 2;align-self:center}
+  .hero-grid.btns-below .btn-row{grid-column:1/-1;grid-row:4;flex-direction:row;align-items:center;margin:16px 0 0}
+  .hero-grid.btns-below .btn-row .btn{flex:1 1 0}
+  .hero-grid.btns-below p.lead{grid-row:5}
+  .hero-grid.btns-below .lead-points{grid-row:6}
+  .hero-grid.btns-below .fine{grid-row:7}
+  .hero-grid.btns-below>.hero-quote{grid-row:8}
   .section{padding:44px 0}
 }
 @media(max-width:420px){
@@ -180,8 +190,8 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .nav-row nav{flex-wrap:nowrap;gap:6px}
   .nav-row nav a{font-size:13px}
 }
-@media(max-width:380px){.btn-small .amt{display:none}.brand span{font-size:16px}}
-@media(max-width:340px){.brand img{height:30px}.brand span{font-size:15px}.btn-small{padding:6px 10px;font-size:12px}.nav-row nav a{font-size:12px}}
+@media(max-width:380px){.brand span{font-size:16px}}
+@media(max-width:340px){.site-header .wrap{padding:0 10px}.nav-row{column-gap:8px}.brand{gap:6px}.brand img{height:30px}.brand span{font-size:15px}.btn-small{padding:6px 8px;font-size:12px}.nav-row nav a{font-size:12px}}
 @media(min-width:421px) and (max-width:560px){.brand span{font-size:18px}}
 /* The flip only plays when you click, so it stays on even with "reduce motion" set. */
 .quick-bar{display:none}
@@ -195,7 +205,7 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
 
 /* Plain white panel behind each section's content so the background symbols never sit under text */
 .hero>.wrap,.section>.wrap{width:calc(100% - 24px);max-width:1140px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:40px 36px;box-shadow:0 2px 14px rgba(49,59,136,.06)}
-@media(max-width:560px){.hero>.wrap,.section>.wrap{padding:28px 18px;border-radius:14px}.lead{font-size:18px}}
+@media(max-width:560px){.hero>.wrap,.section>.wrap{padding:28px 18px;border-radius:14px}.lead{font-size:16px}.hero-head .eyebrow{font-size:min(4.2cqi,14px)}}
 
 /* How sessions work: screenshot, parents and rescheduling on the left; intro, first session and button on the right.
    On phones it's one column in reading order: intro, screenshot, first session, parents, rescheduling, button. */
@@ -219,32 +229,32 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .approach{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start;margin-top:18px}
   .approach .cards{margin:0;gap:10px}
   .approach .card{padding:12px 14px}
-  .approach .card h3{font-size:17px;margin-bottom:6px}
-  .approach .card p{font-size:15px;line-height:1.5;margin:0}
-  .approach .for-you h3{margin-top:0;font-size:17px}
-  .approach .ticks{font-size:15px;line-height:1.5;margin:0}
+  .approach .card h3{font-size:16px;margin-bottom:6px}
+  .approach .card p{font-size:14px;line-height:1.5;margin:0}
+  .approach .for-you h3{margin-top:0;font-size:16px}
+  .approach .ticks{font-size:14px;line-height:1.5;margin:0}
   .approach .ticks li{padding-left:22px;margin-bottom:10px}
 }
 
 /* Phones: text sizes in line with the hero (18px body, 15px small text) */
 @media(max-width:560px){
-  body{font-size:18px}
-  h2{font-size:26px}
-  h3{font-size:19px}
-  .btn:not(.btn-small){font-size:17px;padding:12px 20px}
-  .fine{font-size:15px}
-  .chip-group h3{font-size:13px}
+  body{font-size:16px}
+  h2{font-size:23px}
+  h3{font-size:17px}
+  .btn:not(.btn-small){font-size:16px;padding:11px 18px}
+  .fine{font-size:14px}
+  .chip-group h3{font-size:12px}
   .chips{gap:8px}
-  .chips li{font-size:15px;padding:6px 12px}
-  .review blockquote{font-size:16px}
-  .review.wide blockquote{font-size:17px}
-  .review figcaption,.hero-quote figcaption,.card-quote figcaption{font-size:14px}
-  .hero-quote blockquote{font-size:17px}
-  .card-quote blockquote{font-size:16px}
-  .price .amount{font-size:30px}
-  .packages strong{font-size:20px}
+  .chips li{font-size:14px;padding:5px 11px}
+  .review blockquote{font-size:15px}
+  .review.wide blockquote{font-size:16px}
+  .review figcaption,.hero-quote figcaption,.card-quote figcaption{font-size:13px}
+  .hero-quote blockquote{font-size:15px}
+  .card-quote blockquote{font-size:15px}
+  .price .amount{font-size:28px}
+  .packages strong{font-size:18px}
   .card{padding:18px}
-  footer{font-size:14px}
+  footer{font-size:13px}
 }
 /* One long math-symbol image behind the whole page (Images/math-bg-*.png, made from math-background.tex).
    It stretches to the page height, so the math gets harder gradually from top to bottom. */

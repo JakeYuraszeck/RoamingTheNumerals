@@ -46,7 +46,7 @@
             <li>Bring a topic that confuses you. We'll build it up together, step by step, until it feels like math you could have figured out yourself.</li>
           </ul>
           <div class="btn-row">
-            <a class="btn" href="booking-trial.html">Book a $15 trial lesson<span class="btn-sub">with code: <strong>TRIAL</strong></span></a>
+            <a class="btn" href="booking-trial.html">Book a $15 trial&nbsp;lesson<span class="btn-sub">with code: <strong>TRIAL</strong></span></a>
             <a class="btn btn-outline" href="#contact">Ask a question first</a>
           </div>
           <p class="fine">New students start with a $15 trial lesson on Zoom. Not a good fit? I'll refund the trial.</p>
@@ -154,7 +154,7 @@
             <p>Then you'll work a problem and talk me through how you solved it. That shows me where you are, and which math terms you're comfortable reading and using.</p>
           </div>
           <div class="s-cta btn-row">
-            <a class="btn" href="booking-trial.html">Book a $15 trial lesson<span class="btn-sub">with code: <strong>TRIAL</strong></span></a>
+            <a class="btn" href="booking-trial.html">Book a $15 trial&nbsp;lesson<span class="btn-sub">with code: <strong>TRIAL</strong></span></a>
             <a class="btn btn-outline" href="#contact">Ask a question first</a>
           </div>
         </div>
@@ -205,7 +205,7 @@
               <li><strong>Not a good fit? I'll refund the trial.</strong> New students only, one trial per student.</li>
               <li>Enter code <strong>TRIAL</strong> at checkout</li>
             </ul>
-            <a class="btn btn-block" href="booking-trial.html">Book a trial lesson</a>
+            <a class="btn btn-block" href="booking-trial.html">Book a trial&nbsp;lesson</a>
           </article>
 
           <article class="card price">
@@ -376,6 +376,7 @@
             card.style.maxWidth = '';
             snapHeight(front.offsetHeight);
             inner.style.transition = '';
+            setTimeout(arrangeButtons, 0); // in case the screen size changed while it was open
           });
         }
         setState(on);
@@ -397,9 +398,24 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && card.classList.contains('is-flipped')) flip(false);
       });
-      window.addEventListener('resize', size);
-      window.addEventListener('load', size);
-      size();
+      // Phones: if the credentials + buttons beside the photo end up taller than the photo,
+      // move the buttons below the photo and credentials, side by side.
+      var grid = document.querySelector('.hero-grid');
+      var proof = grid.querySelector('.proof'), btnRow = grid.querySelector('.btn-row');
+      function arrangeButtons() {
+        if (!narrow.matches) { grid.classList.remove('btns-below'); return; }
+        if (moving || card.classList.contains('is-open')) return; // keep the current layout while open or animating
+        grid.classList.remove('btns-below');
+        var side = btnRow.getBoundingClientRect().bottom - proof.getBoundingClientRect().top;
+        grid.classList.toggle('btns-below', side > front.offsetHeight + 1);
+      }
+      function relayout() { size(); arrangeButtons(); }
+
+      window.addEventListener('resize', relayout);
+      window.addEventListener('load', relayout);
+      if (document.fonts) document.fonts.ready.then(relayout);
+      narrow.addEventListener('change', arrangeButtons);
+      relayout();
     })();
   </script>
 </body>
