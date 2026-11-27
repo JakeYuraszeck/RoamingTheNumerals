@@ -197,6 +197,23 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
 .hero>.wrap,.section>.wrap{width:calc(100% - 24px);max-width:1140px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:40px 36px;box-shadow:0 2px 14px rgba(49,59,136,.06)}
 @media(max-width:560px){.hero>.wrap,.section>.wrap{padding:28px 18px;border-radius:14px}.lead{font-size:18px}}
 
+/* How sessions work: screenshot, parents and rescheduling on the left; intro, first session and button on the right.
+   On phones it's one column in reading order: intro, screenshot, first session, parents, rescheduling, button. */
+.sessions.split{align-items:start}
+.sessions h3{margin:26px 0 8px}
+.sessions .ticks{margin-bottom:16px}
+.sessions .s-first h3{margin-top:22px}
+@media(max-width:860px){
+  .sessions.split{gap:0}
+  .sessions .s-left,.sessions .s-right{display:contents}
+  .sessions .s-intro{order:1}
+  .sessions .shot{order:2;margin-bottom:4px}
+  .sessions .s-first{order:3}
+  .sessions .s-parents{order:4}
+  .sessions .s-resched{order:5}
+  .sessions .s-cta{order:6;margin-top:4px}
+}
+
 /* Phones: approach cards stacked on the left, "This is for you if" beside them on the right */
 @media(max-width:860px){
   .approach{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start;margin-top:18px}
