@@ -52,7 +52,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
   text-transform: uppercase;
 }
 h1, h2 {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, Gelasio, "Times New Roman", serif;
   font-weight: 400;
   line-height: 1.15;
 }
