@@ -196,6 +196,39 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
 /* Plain white panel behind each section's content so the background symbols never sit under text */
 .hero>.wrap,.section>.wrap{width:calc(100% - 24px);max-width:1140px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:40px 36px;box-shadow:0 2px 14px rgba(49,59,136,.06)}
 @media(max-width:560px){.hero>.wrap,.section>.wrap{padding:28px 18px;border-radius:14px}.lead{font-size:18px}}
+
+/* Phones: approach cards stacked on the left, "This is for you if" beside them on the right */
+@media(max-width:860px){
+  .approach{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start;margin-top:18px}
+  .approach .cards{margin:0;gap:10px}
+  .approach .card{padding:12px 14px}
+  .approach .card h3{font-size:17px;margin-bottom:6px}
+  .approach .card p{font-size:15px;line-height:1.5;margin:0}
+  .approach .for-you h3{margin-top:0;font-size:17px}
+  .approach .ticks{font-size:15px;line-height:1.5;margin:0}
+  .approach .ticks li{padding-left:22px;margin-bottom:10px}
+}
+
+/* Phones: text sizes in line with the hero (18px body, 15px small text) */
+@media(max-width:560px){
+  body{font-size:18px}
+  h2{font-size:26px}
+  h3{font-size:19px}
+  .btn:not(.btn-small){font-size:17px;padding:12px 20px}
+  .fine{font-size:15px}
+  .chip-group h3{font-size:13px}
+  .chips{gap:8px}
+  .chips li{font-size:15px;padding:6px 12px}
+  .review blockquote{font-size:16px}
+  .review.wide blockquote{font-size:17px}
+  .review figcaption,.hero-quote figcaption,.card-quote figcaption{font-size:14px}
+  .hero-quote blockquote{font-size:17px}
+  .card-quote blockquote{font-size:16px}
+  .price .amount{font-size:30px}
+  .packages strong{font-size:20px}
+  .card{padding:18px}
+  footer{font-size:14px}
+}
 /* One long math-symbol image behind the whole page (Images/math-bg-*.png, made from math-background.tex).
    It stretches to the page height, so the math gets harder gradually from top to bottom. */
 html{background:var(--soft) url("Images/math-bg-desktop.png") center top/auto 100% no-repeat}
