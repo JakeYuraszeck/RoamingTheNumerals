@@ -36,34 +36,40 @@
           <h1><span>Understand the math.</span> <span>Build your confidence.</span></h1>
         </div>
         <div>
-          <p class="lead">I tutor middle school, high school and college level math. Bring a homework problem, a quiz, or a practice test. We'll work through it on my digital whiteboard, then you'll try a similar one.</p>
+          <p class="lead">I tutor middle school, high school and college level math.</p>
+          <ul class="lead lead-points">
+            <li>Bring a homework problem, a quiz, or a practice test. We'll work through it on my digital whiteboard, then you'll try a similar one.</li>
+            <li>Bring a topic that confuses you. We'll build it up together, step by step, until it feels like math you could have figured out yourself.</li>
+          </ul>
           <p class="proof"><span>B.S. in Mathematics, Penn State</span><span>Taught grades 7&ndash;10 in Philadelphia</span><span>500+ tutoring sessions</span></p>
           <div class="btn-row">
             <a class="btn" href="booking-trial.html">Book a $15 trial lesson</a>
             <a class="btn btn-outline" href="#contact">Ask a question first</a>
           </div>
           <p class="fine">New students start with a $15 trial lesson on Zoom. Not a good fit? I'll refund the trial.</p>
-          <figure class="hero-quote"><blockquote>&ldquo;This is my first real lesson with jake but I already feel so much more comfortable with algebra and that's always been a big struggle for me and something none of my real teachers could ever help me with so thank you for actually teaching me something that I've struggled with my whole life.&rdquo;</blockquote><figcaption>&#9733;&#9733;&#9733;&#9733;&#9733; Carlos, after his first lesson</figcaption></figure>
         </div>
+        <div class="hero-side">
         <div class="flip" id="flip">
           <div class="flip-inner">
             <div class="face front">
               <button type="button" class="photo-btn" id="flip-open" aria-expanded="false" aria-controls="about-back">
                 <img src="Images/Normal Photo.jpg" alt="Jake, your math tutor. Press to flip this card and read about me." width="480" height="600">
-                <span class="hint" aria-hidden="true">Click to learn about me ↻</span>
+                <span class="hint" aria-hidden="true"><span class="hint-long">Click to learn about me</span><span class="hint-short">About me</span> <span class="hint-icon">↻</span></span>
               </button>
             </div>
             <div class="face back" id="about-back" aria-hidden="true" inert>
               <h2>Hello, I'm Jake!</h2>
               <ul class="stats">
                 <li><strong>10+ years in math communication</strong> at all levels from elementary school through graduate level math.</li>
-                <li><strong>500+ tutoring sessions</strong> designing lessons, checking for understanding, creating and providing resources.</li>
+                <li><strong>Specialized in building confidence in math</strong> by celebrating wins, using the math you're already comfortable with to learn new math, and connecting it to the logical thinking you already use every day.</li>
                 <li><strong>Background in theoretical mathematics</strong> allows me to come up with countless ways to explain the same topic for any level of math.</li>
               </ul>
               <p class="how"><strong>How I teach:</strong> One explanation does not work for everyone. I use multiple approaches, connect new ideas to what you already know, and help you feel more confident in your ability to learn math.</p>
               <button type="button" class="btn btn-outline btn-small flip-back" id="flip-close">↻ Flip back to photo</button>
             </div>
           </div>
+        </div>
+        <figure class="hero-quote"><blockquote>&ldquo;This is my first real lesson with jake but I already feel so much more comfortable with algebra and that's always been a big struggle for me and something none of my real teachers could ever help me with so thank you for actually teaching me something that I've struggled with my whole life.&rdquo;</blockquote><figcaption>&#9733;&#9733;&#9733;&#9733;&#9733; Carlos, after his first lesson</figcaption></figure>
         </div>
       </div>
     </section>
@@ -246,19 +252,88 @@
         inner.style.height = (on ? Math.max(front.offsetHeight, back.scrollHeight) : front.offsetHeight) + 'px';
       }
 
-      function flip(on) {
-        card.classList.remove('is-turning');
-        void card.offsetWidth; // restart the lift animation
-        card.classList.add('is-turning');
-        setTimeout(function () { card.classList.remove('is-turning'); }, 850);
-        card.classList.toggle('is-flipped', on);
+      // On phones the small photo sits beside the headline and the About Me side opens full width below it.
+      var narrow = window.matchMedia('(max-width: 860px)');
+      var EASE = 'cubic-bezier(.4,.1,.2,1)', MS = 800;
+      var moving = null;
+
+      function setState(on) {
         open.setAttribute('aria-expanded', String(on));
         front.inert = on;
         back.inert = !on;
         back.setAttribute('aria-hidden', String(!on));
-        size();
         requestAnimationFrame(function () { (on ? close : open).focus({ preventScroll: true }); });
       }
+
+      // Change the card's height right away, without the CSS height transition.
+      function snapHeight(px) {
+        inner.style.transition = 'transform ' + MS + 'ms ' + EASE;
+        inner.style.height = px + 'px';
+        void inner.offsetHeight;
+      }
+
+      // Slide + scale the card from one box to another while it rotates.
+      function glide(from, to, done) {
+        var a = card.getBoundingClientRect();
+        function box(r) {
+          return 'translate(' + (r.left - a.left) + 'px,' + (r.top - a.top) + 'px) scale(' + (r.width / a.width) + ')';
+        }
+        moving = card.animate(
+          [{ transformOrigin: '0 0', transform: box(from) }, { transformOrigin: '0 0', transform: box(to) }],
+          { duration: MS, easing: EASE, fill: 'forwards' }
+        );
+        moving.onfinish = function () { if (done) done(); moving.cancel(); moving = null; };
+      }
+
+      function flip(on) {
+        if (moving) return; // ignore clicks mid-animation
+        if (!narrow.matches) {
+          card.classList.remove('is-turning');
+          void card.offsetWidth; // restart the lift animation
+          card.classList.add('is-turning');
+          setTimeout(function () { card.classList.remove('is-turning'); }, 850);
+          card.classList.toggle('is-flipped', on);
+          setState(on);
+          size();
+          return;
+        }
+
+        if (on) {
+          // Grow: move into the full-width spot, then animate from the small photo's box.
+          var small = card.getBoundingClientRect();
+          snapHeight(0);
+          card.classList.add('is-open');
+          var big = card.getBoundingClientRect();
+          card.classList.add('is-flipped');
+          inner.style.transition = '';
+          size(); // height slides open, pushing the text below down smoothly
+          glide(small, big);
+        } else {
+          // Shrink: measure where the small photo goes, stay in place while animating there, then move back.
+          var from = card.getBoundingClientRect(), tall = inner.offsetHeight;
+          card.classList.remove('is-open');
+          snapHeight(front.offsetHeight);
+          var to = card.getBoundingClientRect();
+          card.classList.add('is-open');
+          snapHeight(tall);
+          card.classList.remove('is-flipped');
+          inner.style.transition = '';
+          inner.style.height = '0px'; // the space below closes up while the card shrinks away
+          glide(from, to, function () {
+            card.classList.remove('is-open');
+            snapHeight(front.offsetHeight);
+            inner.style.transition = '';
+          });
+        }
+        setState(on);
+      }
+
+      // If the screen is resized across the phone/desktop boundary, drop the phone-only layout.
+      narrow.addEventListener('change', function () {
+        if (!narrow.matches) card.classList.remove('is-open');
+        else if (card.classList.contains('is-flipped')) card.classList.add('is-open');
+        size();
+      });
 
       open.addEventListener('click', function () { flip(true); });
       close.addEventListener('click', function () { flip(false); });
