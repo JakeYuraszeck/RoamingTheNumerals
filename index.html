@@ -285,6 +285,25 @@
         moving.onfinish = function () { if (done) done(); moving.cancel(); moving = null; };
       }
 
+      // Hero text blocks that change place when the card opens or closes on phones.
+      var movers = [].slice.call(document.querySelectorAll(
+        '.hero-grid p.lead, .hero-grid .lead-points, .hero-grid .proof, .hero-grid .btn-row, .hero-grid .fine, .hero-grid > .hero-quote'));
+      function textBoxes() {
+        return movers.map(function (el) { return el.getBoundingClientRect(); });
+      }
+      // Slide each block from its old spot to its new one.
+      function slideText(before) {
+        movers.forEach(function (el, i) {
+          var now = el.getBoundingClientRect();
+          var dx = before[i].left - now.left, dy = before[i].top - now.top;
+          if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+          el.animate(
+            [{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }],
+            { duration: MS, easing: EASE }
+          );
+        });
+      }
+
       function flip(on) {
         if (moving) return; // ignore clicks mid-animation
         if (!narrow.matches) {
@@ -298,29 +317,34 @@
           return;
         }
 
+        // The layout switches to its final state at once; the card and every text block are then
+        // animated from where they were, so nothing jumps.
+        var before = textBoxes();
         if (on) {
           // Grow: move into the full-width spot, then animate from the small photo's box.
           var small = card.getBoundingClientRect();
-          snapHeight(0);
           card.classList.add('is-open');
-          var big = card.getBoundingClientRect();
           card.classList.add('is-flipped');
+          snapHeight(Math.max(front.offsetHeight, back.scrollHeight));
           inner.style.transition = '';
-          size(); // height slides open, pushing the text below down smoothly
+          var big = card.getBoundingClientRect();
+          slideText(before);
           glide(small, big);
         } else {
-          // Shrink: measure where the small photo goes, stay in place while animating there, then move back.
-          var from = card.getBoundingClientRect(), tall = inner.offsetHeight;
+          // Shrink: put the small layout in place, but keep the card at its big width while it
+          // animates (so the About Me side doesn't squash), then release it at the end.
+          var from = card.getBoundingClientRect();
           card.classList.remove('is-open');
           snapHeight(front.offsetHeight);
           var to = card.getBoundingClientRect();
-          card.classList.add('is-open');
-          snapHeight(tall);
+          card.style.width = from.width + 'px';
+          card.style.maxWidth = 'none';
           card.classList.remove('is-flipped');
           inner.style.transition = '';
-          inner.style.height = '0px'; // the space below closes up while the card shrinks away
+          slideText(before);
           glide(from, to, function () {
-            card.classList.remove('is-open');
+            card.style.width = '';
+            card.style.maxWidth = '';
             snapHeight(front.offsetHeight);
             inner.style.transition = '';
           });
