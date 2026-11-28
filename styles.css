@@ -124,6 +124,7 @@ a:focus-visible,.btn:focus-visible{outline:3px solid var(--pink);outline-offset:
 .price .amount span{font:15px system-ui,sans-serif;color:var(--muted)}
 .price p:not(.amount):not(.badge){margin-bottom:20px;color:var(--muted)}
 .featured{border:2px solid var(--accent)}
+.price:not(.featured){border:2px solid var(--blue-100)}
 .badge{position:absolute;top:-13px;left:20px;background:var(--accent);color:#fff!important;font-size:13px;font-weight:700;padding:3px 12px;border-radius:999px;margin:0}
 
 .packages{display:grid;gap:8px;margin:0 0 16px}
