@@ -337,3 +337,8 @@ a:not(.btn):hover{color:var(--magenta)}
 #contact .card:nth-child(3) .btn{border-color:var(--red-100);background:var(--red-50);color:var(--red)}
 .quick-bar a:hover,#contact .card .btn:hover{border-color:currentColor;background:#fff}
 #contact .card:nth-child(3){border-top-color:var(--red)}
+
+/* Header links: the link for the section you're on gets an underline whose colour follows the stripe's gradient
+   as you scroll (set by nav-scroll.js). No fade: it switches straight to the new link. */
+.nav-row nav a.is-current{text-decoration:underline;text-decoration-color:var(--nav-bg,var(--accent));
+  text-decoration-thickness:3px;text-underline-offset:6px}
