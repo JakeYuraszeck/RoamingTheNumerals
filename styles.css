@@ -255,11 +255,12 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .card{padding:18px}
   footer{font-size:13px}
 }
-/* One long math-symbol image behind the whole page (Images/math-bg-*.png, made from math-background.tex).
-   It stretches to the page height, so the math gets harder gradually from top to bottom. */
-html{background:var(--soft) url("Images/math-bg-desktop.png") center top/auto 100% no-repeat}
-@media(max-width:1199px){html{background-image:url("Images/math-bg-tablet.png")}}
-@media(max-width:860px){html{background-image:url("Images/math-bg-mobile.png")}}
+/* Math behind the page: math-background.js scatters LaTeX equations (rendered into math-equations.js by
+   tools/math-background/build.html) down the whole page as one seamless layer, getting harder from top to bottom. */
+html{background:var(--soft)}
+body{position:relative}
+#math-bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;color:#6f7cc0;opacity:.42}
+#math-bg svg{display:block}
 
 .card{min-width:0}
 .card p,.card a{overflow-wrap:anywhere}
