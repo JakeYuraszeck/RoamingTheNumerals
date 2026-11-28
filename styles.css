@@ -199,7 +199,7 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   body{padding-bottom:72px}
   .quick-bar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.08)}
   .quick-bar a{flex:1;display:flex;align-items:center;justify-content:center;min-height:46px;padding:0 8px;border-radius:8px;border:2px solid var(--accent);background:#fff;color:var(--accent);font-weight:700;font-size:14px;white-space:nowrap;text-decoration:none}
-  .quick-bar a:last-child{background:var(--accent);color:#fff;flex:2}
+  .quick-bar a.qb-primary{background:var(--accent);color:#fff;flex:1.6}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -318,3 +318,21 @@ a:not(.btn):hover{color:var(--magenta)}
 @media(max-width:860px){.teach{gap:18px;margin-bottom:22px}}
 .teach .for-you h3{margin-top:0}
 .teach .ticks{margin-bottom:0}
+
+/* Contact: two side-by-side buttons in the "Text or email" card */
+.card-btns{display:flex;gap:10px;margin-top:auto}
+.card-btns .btn{flex:1 1 0;padding-left:10px;padding-right:10px}
+.contact-lines{line-height:1.8}
+
+/* Contact options use one button style, each tinted with its card's colour:
+   navy = text or email, magenta = free consultation, red-coral = submit a question.
+   The sticky phone bar uses the same colours in the same order. */
+:root{--red:#BD1A27;--red-50:#FFF8F7;--red-100:#FCC1BC}
+.quick-bar a,
+#contact .card .btn{border:2px solid var(--blue-100);background:var(--blue-50);color:var(--accent)}
+.quick-bar a.qb-primary,
+#contact .card:nth-child(2) .btn{border-color:var(--pink-100);background:var(--pink-50);color:var(--magenta)}
+.quick-bar a:nth-child(3),
+#contact .card:nth-child(3) .btn{border-color:var(--red-100);background:var(--red-50);color:var(--red)}
+.quick-bar a:hover,#contact .card .btn:hover{border-color:currentColor;background:#fff}
+#contact .card:nth-child(3){border-top-color:var(--red)}
