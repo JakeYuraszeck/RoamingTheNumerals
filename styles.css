@@ -34,7 +34,7 @@ a:focus-visible,.btn:focus-visible{outline:3px solid var(--pink);outline-offset:
 .btn-sub{display:block}
 .btn-sub strong,.btn-code strong{font-weight:900;letter-spacing:.04em}
 .btn-small{white-space:nowrap}
-@media(max-width:560px){.btn-small .btn-code{display:none}}
+@media(max-width:560px){.btn-small .btn-code{display:block;font-size:.85em;line-height:1.15}.site-header .btn-small{line-height:1.15;padding-top:6px;padding-bottom:6px;text-align:center}}
 .btn-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:24px 0 14px}
 
 .hero{padding:56px 0}
@@ -109,6 +109,11 @@ a:focus-visible,.btn:focus-visible{outline:3px solid var(--pink);outline-offset:
 .chips li{padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--soft);font-weight:600;font-size:17px}
 .plain li{padding:6px 0;border-bottom:1px solid var(--line)}
 .plain{margin-bottom:20px}
+.steps{counter-reset:step}
+.steps li{counter-increment:step;display:flex;align-items:center;gap:10px;font-weight:700}
+.steps li::before{content:counter(step);flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:14px}
+.price p.code-note{margin:0 0 20px;padding:10px 12px;border:2px dashed var(--magenta,#980453);border-radius:8px;background:var(--pink-50,#fdeef4);color:var(--magenta,#980453);text-align:center;font-weight:600}
+.code-note strong{font-weight:900;letter-spacing:.06em}
 
 .shot{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .video{aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000}
@@ -200,6 +205,10 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .quick-bar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.08)}
   .quick-bar a{flex:1;display:flex;align-items:center;justify-content:center;min-height:46px;padding:0 8px;border-radius:8px;border:2px solid var(--accent);background:#fff;color:var(--accent);font-weight:700;font-size:14px;white-space:nowrap;text-decoration:none}
   .quick-bar a.qb-primary{background:var(--accent);color:#fff;flex:1.6}
+}
+@media(max-width:400px){
+  .quick-bar{gap:6px;padding-left:8px;padding-right:8px}
+  .quick-bar a{min-width:0;padding:0 4px;font-size:13px;white-space:normal;text-align:center;line-height:1.15}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -324,6 +333,9 @@ a:not(.btn):hover{color:var(--magenta)}
 .card-btns{display:flex;gap:10px;margin-top:auto}
 .card-btns .btn{flex:1 1 0;padding-left:10px;padding-right:10px}
 .contact-lines{line-height:1.8}
+/* The email address always stays on one line: it shrinks with its card when the card gets narrow. */
+#contact .card{container-type:inline-size;min-width:0}
+.contact-email{white-space:nowrap;font-size:min(1em,7.3cqi)}
 
 /* Contact options use one button style, each tinted with its card's colour:
    navy = text or email, magenta = free consultation, red-coral = submit a question.
