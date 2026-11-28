@@ -226,16 +226,13 @@ footer{border-top:1px solid var(--line);padding:24px 0;font-size:15px;color:var(
   .sessions .s-cta .btn{flex:1 1 0;font-size:14px;padding:9px 12px}
 }
 
-/* Phones: approach cards stacked on the left, "This is for you if" beside them on the right */
+/* Phones: compact approach cards, stacked full width */
 @media(max-width:860px){
-  .approach{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start;margin-top:18px}
+  .approach{margin-top:0}
   .approach .cards{margin:0;gap:10px}
   .approach .card{padding:12px 14px}
   .approach .card h3{font-size:16px;margin-bottom:6px}
   .approach .card p{font-size:14px;line-height:1.5;margin:0}
-  .approach .for-you h3{margin-top:0;font-size:16px}
-  .approach .ticks{font-size:14px;line-height:1.5;margin:0}
-  .approach .ticks li{padding-left:22px;margin-bottom:10px}
 }
 
 /* Phones: text sizes in line with the hero (18px body, 15px small text) */
@@ -266,3 +263,58 @@ html{background:var(--soft) url("Images/math-bg-desktop.png") center top/auto 10
 
 .card{min-width:0}
 .card p,.card a{overflow-wrap:anywhere}
+
+/* ---------- Brand colour layer (colours from "Logo and Color Pallet/Color Pallet.png") ----------
+   Navy #313B88 stays the main accent; magenta #980453 is the second accent; the palette's lightest
+   blue and pink tints add soft colour without hurting readability. */
+:root{--magenta:#980453;--blue-50:#F3F5FC;--blue-100:#CDD3EA;--pink-50:#FFF4F8;--pink-100:#FFD5E2;--coral:#FA847D;--muted:#68545F}
+
+/* Thin brand stripe under the header */
+.site-header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--accent),var(--magenta) 65%,var(--coral))}
+
+/* Hero: second line of the headline and the eyebrow in magenta, magenta bullets */
+.hero-head h1 span:last-child{color:var(--magenta)}
+.eyebrow,.label,.chip-group h3{color:var(--magenta)}
+.lead-points li::marker{color:var(--magenta)}
+.proof span::before{color:var(--magenta)}
+.hero-quote{background:var(--pink-50)}
+
+/* Short navy-to-magenta bar above each section heading */
+.section h2::before{content:"";display:block;width:44px;height:4px;border-radius:2px;margin-bottom:14px;background:linear-gradient(90deg,var(--accent),var(--magenta))}
+
+/* Every other section gets a very light blue panel; cards stay white so they stand out */
+.section.alt>.wrap{background:var(--blue-50);border-color:var(--blue-100)}
+
+/* Checkmarks in magenta */
+.ticks li::before{color:var(--magenta)}
+
+/* Coloured top edge on the three-card rows (approach and contact) */
+.approach .card,#contact .card{border-top:4px solid var(--accent)}
+.approach .card:nth-child(2),#contact .card:nth-child(2){border-top-color:var(--magenta)}
+.approach .card:nth-child(3),#contact .card:nth-child(3){border-top-color:var(--coral)}
+
+/* Subject chips: college in blue, middle/high school in pink */
+.chips li{background:var(--blue-50);border-color:var(--blue-100);color:var(--accent)}
+.chip-group+.chip-group .chips li{background:var(--pink-50);border-color:var(--pink-100);color:var(--magenta)}
+
+/* Reviews: magenta opening quote mark */
+.review blockquote::before{content:"\201C";color:var(--magenta);font:400 2.4em/0 Georgia,Gelasio,serif;vertical-align:-.38em;margin-right:4px}
+
+/* Booking: magenta badge, pricing in navy, best-value package tinted pink */
+.badge{background:var(--magenta)}
+.price .amount{color:var(--accent)}
+.packages .best{border-color:var(--magenta);background:var(--pink-50)}
+.packages .best:hover{background:#fff}
+
+/* Buttons: the trial code pops in light pink on navy buttons; links turn magenta on hover */
+.btn:not(.btn-outline) .btn-sub strong,.btn:not(.btn-outline) .btn-code strong{color:var(--pink-100)}
+.btn-outline:hover{background:var(--blue-50)}
+a:not(.btn):hover{color:var(--magenta)}
+.photo-btn:hover .hint{background:var(--magenta)}
+
+/* Teaching block (montage video + how I teach) above the approach cards */
+.teach{gap:32px;margin:8px 0 28px}
+.teach p:last-child{margin-bottom:0}
+@media(max-width:860px){.teach{gap:18px;margin-bottom:22px}}
+.teach .for-you h3{margin-top:0}
+.teach .ticks{margin-bottom:0}

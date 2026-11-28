@@ -45,7 +45,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 }
 .booking-kicker {
   margin: 0 0 8px;
-  color: var(--pink);
+  color: #980453;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: .08em;
